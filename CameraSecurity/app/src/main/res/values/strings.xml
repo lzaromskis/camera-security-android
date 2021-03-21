@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Camera security</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Live camera feed</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="camera_view_description">Displays the live feed from the camera</string>
+</resources>

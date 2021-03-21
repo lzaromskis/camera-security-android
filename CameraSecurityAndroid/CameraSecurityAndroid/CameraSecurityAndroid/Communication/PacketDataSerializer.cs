@@ -6,7 +6,7 @@ namespace CameraSecurityAndroid.Communication
 {
     public class PacketDataSerializer
     {
-        private const char KEY_VALUE_SEPARATOR = '=';
+        private const char KEY_VALUE_SEPARATOR = '&';
         private const char PAIR_SEPARATOR = ';';
 
         public string Serialize(PacketData data)

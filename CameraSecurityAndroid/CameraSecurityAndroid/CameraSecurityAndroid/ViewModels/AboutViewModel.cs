@@ -33,26 +33,60 @@ namespace CameraSecurityAndroid.ViewModels
         {
             Title = "About";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            Client asyncClient = new Client("10.0.2.2", 7500);
+            Device.StartTimer(TimeSpan.FromSeconds(2), () =>
+            {
+                
 
-            int bufferSize = 2 * 1024 * 1024;
-            byte[] buffer = new byte[bufferSize];
-            byte[] msg = Encoding.ASCII.GetBytes("code=35;secret=secret;");
+                //string dataString = Encoding.ASCII.GetString(packetDataBytes);
+                string dataString = asyncClient.SendRequest("code&35;secret&secret;");
+                var packetSer = new PacketDataSerializer();
+                var packet = packetSer.Deserialize(dataString);
+                var imageData = packet.GetAttribute("image");
+                ImageSource source = null;
+                try
+                {
+                    var des = new BmpBase64ImageDeserializer();
+                    source = des.DeserializeGetSource(imageData);
+                }
+                catch (Exception ex)
+                {
+                    source = ImageSource.FromFile("xamarin_logo.png");
+                    Console.WriteLine(ex.Message);
+                }
+
+                SomeImageSource = source;
+                return true;
+            });
+
+            //int bufferSize = 2 * 1024 * 1024;
+            //byte[] buffer = new byte[bufferSize];
+            //byte[] msg = Encoding.ASCII.GetBytes("code=35;secret=secret;");
             
-            TcpClient client = new TcpClient("10.0.2.2", 7500);
-            NetworkStream stream = client.GetStream();
-            stream.Write(msg, 0, msg.Length);
+            //TcpClient client = new TcpClient("10.0.2.2", 7500);
+            //NetworkStream stream = client.GetStream();
+            //stream.Write(msg, 0, msg.Length);
+
+            //int offset = 0;
+            //while (true)
+            //{
+            //    var bytesRead = stream.Read(buffer, offset, bufferSize - offset);
+            //    if (bytesRead == 0)
+            //        break;
+            //    offset += bytesRead;
+            //}
 
             /*
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             stream.Flush();
             stream.Close(1000);
             client.Close();*/
-
+            /*
             StreamReader reader = new StreamReader(stream);
             string dataString = reader.ReadToEnd();
-            reader.Close();
-            stream.Close();
-            client.Close();
+            reader.Close();*/
+            //stream.Close();
+            //client.Close();
 
             /*
             var host = Dns.GetHostEntry("10.0.2.2");
@@ -66,26 +100,11 @@ namespace CameraSecurityAndroid.ViewModels
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();*/
 
-            /*
-            byte[] packetDataBytes = new byte[bytesRead];
-            Array.Copy(buffer, packetDataBytes, bytesRead);
-            string packetDataString = Encoding.ASCII.GetString(packetDataBytes);
-            */
-            var packetSer = new PacketDataSerializer();
-            var packet = packetSer.Deserialize(dataString);
-            var imageData = packet.GetAttribute("image");
-            ImageSource source = null;
-            try
-            {
-                var des = new BmpBase64ImageDeserializer();
-                source = des.DeserializeGetSource(imageData);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
             
-            SomeImageSource = source;
+            //byte[] packetDataBytes = new byte[offset];
+            //Array.Copy(buffer, packetDataBytes, offset);
+            
+            
 
         }
 
