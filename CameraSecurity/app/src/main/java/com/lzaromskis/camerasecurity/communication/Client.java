@@ -2,7 +2,11 @@ package com.lzaromskis.camerasecurity.communication;
 
 import android.os.AsyncTask;
 
+import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
+import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -20,31 +24,44 @@ public class Client{
     private final int _port;
     private final char[] _buffer;
 
+    public Client(String host) {
+        _host = host;
+        _port = 7500;
+        _buffer = new char[BUFFER_SIZE];
+    }
+
     public Client(String host, int port) {
         _host = host;
         _port = port;
         _buffer = new char[BUFFER_SIZE];
     }
 
-    public String sendRequest(String request) {
+    public String sendRequest(String request) throws InvalidHostnameException, IOException {
         try {
             int bytesRead;
             char[] sizeBufferChars = new char[8];
             byte[] sizeBufferBytes = new byte[4];
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress(_host, _port));
-            //socket.connect();
+            InetSocketAddress address =  new InetSocketAddress(_host, _port);
+            if (address.isUnresolved())
+                throw new InvalidHostnameException("The host '" + _host + "' cannot be resolved.");
+            socket.connect(address);
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             writer.print(request);
             writer.flush();
             //BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             InputStreamReader reader = new InputStreamReader(socket.getInputStream());
             bytesRead = reader.read(sizeBufferChars, 0, 8);
+            if (bytesRead != 8)
+                throw new InvalidResponseException("The received response is invalid.");
             String sizeString = new String(sizeBufferChars);
             int size = Integer.parseInt(sizeString);
-            for (int i = 0; i < size; i++) {
-                bytesRead = reader.read(_buffer, i, 1);
+
+            for (bytesRead = 0; bytesRead < size; ) {
+                bytesRead += reader.read(_buffer, bytesRead, 1);
             }
+            if (bytesRead != size)
+                throw new InvalidResponseException("The received response is invalid.");
             //bytesRead = reader.read(_buffer, 0, size);
             writer.close();
             reader.close();

@@ -12,8 +12,18 @@
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_login"
+        android:icon="@android:drawable/ic_lock_idle_lock"
+        android:title="Login" />
+
+    <item
+        android:id="@+id/navigation_camera_feed"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Camera feed" />
+
+    <item
+        android:id="@+id/navigation_monitored_zones"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="Monitored zones" />
 
 </menu>

@@ -1,7 +1,19 @@
 <resources>
     <string name="app_name">Camera security</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Live camera feed</string>
+    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="camera_view_description">Displays the live feed from the camera</string>
+    <!-- Strings related to login -->
+    <string name="prompt_server_hostname">Server hostname</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >=4 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open_the_create_new_monitored_zone_view">Open the create new monitored zone view</string>
 </resources>

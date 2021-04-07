@@ -22,4 +22,23 @@
         android:name="com.lzaromskis.camerasecurity.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.lzaromskis.camerasecurity.ui.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/navigation_camera_feed"
+        android:name="com.lzaromskis.camerasecurity.ui.camerafeed.LiveCameraFeed"
+        android:label="Camera feed"
+        tools:layout="@layout/fragment_live_camera_feed" />
+
+    <fragment
+        android:id="@+id/navigation_monitored_zones"
+        android:name="com.lzaromskis.camerasecurity.ui.monitoredzones.MonitoredZonesFragment"
+        android:label="Monitored zones"
+        tools:layout="@layout/fragment_monitored_zones" />
+
 </navigation>

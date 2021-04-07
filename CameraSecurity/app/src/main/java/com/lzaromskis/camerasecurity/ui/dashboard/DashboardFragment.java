@@ -44,7 +44,7 @@ public class DashboardFragment extends Fragment {
         CameraViewUpdater updater = new CameraViewUpdater();
         //android.os.Debug.waitForDebugger();
 
-        _repeatTask = new CameraViewUpdatedRunnable(updater, handler, 500, view, textView);
+        _repeatTask = new CameraViewUpdatedRunnable(updater, handler, 750, view, textView);
 
 
         handler.post(_repeatTask);

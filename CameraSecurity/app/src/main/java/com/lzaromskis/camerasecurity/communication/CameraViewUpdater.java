@@ -6,6 +6,9 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
+
+import java.io.IOException;
 import java.util.Base64;
 import java.util.concurrent.ExecutionException;
 
@@ -19,12 +22,17 @@ public class CameraViewUpdater extends AsyncTask<Object, Void, Void> {
         _view = (ImageView)objects[0];
         _textView = (TextView)objects[1];
         Client client = new Client("10.0.2.2", 7500);
-        String response = client.sendRequest("code&35;secret&secret;");
+        String response = null;
+        try {
+            response = client.sendRequest("code&35;secret&secret;");
+        } catch (InvalidHostnameException | IOException e) {
+            e.printStackTrace();
+        }
         if (response == null)
             return null;
         PacketDataSerializer serializer = new PacketDataSerializer();
         PacketData packet = serializer.deserialize(response);
-        String imageData = packet.getAttribute("image");
+        String imageData = packet.getAttribute(PacketAttribute.IMAGE.getValue());
         if (imageData != null)
         {
             try {
@@ -42,12 +50,17 @@ public class CameraViewUpdater extends AsyncTask<Object, Void, Void> {
         try {
             if (_bitmap != null) {
                 _view.setImageBitmap(_bitmap);
-                _view.invalidate();
+                _view.postInvalidate();
+            }
+            else {
+                _textView.clearComposingText();
+                _textView.setText("Bitmap is null!");
+                _textView.postInvalidate();
             }
         } catch (Exception ex) {
             _textView.clearComposingText();
             _textView.setText(ex.getMessage());
-            _textView.invalidate();
+            _textView.postInvalidate();
         }
 
     }
