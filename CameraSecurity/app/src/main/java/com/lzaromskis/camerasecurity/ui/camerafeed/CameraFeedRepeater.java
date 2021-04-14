@@ -20,7 +20,7 @@ public final class CameraFeedRepeater implements Runnable {
     @Override
     public void run() {
         if (_isRunning) {
-            new CameraFeedRequestAsyncTask().execute(_objects[0], _objects[1], _objects[2], _objects[3]);
+            new CameraFeedRequestAsyncTask().execute(_objects[0], _objects[1], _objects[2], _objects[3], _objects[4]);
             _handler.postDelayed(this, _delay);
         }
     }

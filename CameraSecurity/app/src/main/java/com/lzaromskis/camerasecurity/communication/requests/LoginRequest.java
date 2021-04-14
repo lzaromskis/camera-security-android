@@ -11,13 +11,17 @@ public class LoginRequest extends BaseRequest {
 
     public LoginRequest(String password) {
         _password = password;
-        _requestCode = RequestCode.LOGIN;
     }
 
     @Override
     public PacketData getPacketData() throws UserNotAuthenticatedException {
-        PacketData packet = createMinimalPacket();
+        PacketData packet = createMinimalPacket(false);
         packet.addAttribute(PacketAttribute.PASSWORD.getValue(), _password);
         return packet;
+    }
+
+    @Override
+    protected int getRequestCode() {
+        return RequestCode.LOGIN.getValue();
     }
 }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
+import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -25,7 +26,7 @@ public class CameraViewUpdater extends AsyncTask<Object, Void, Void> {
         String response = null;
         try {
             response = client.sendRequest("code&35;secret&secret;");
-        } catch (InvalidHostnameException | IOException e) {
+        } catch (InvalidHostnameException | IOException | InvalidResponseException e) {
             e.printStackTrace();
         }
         if (response == null)

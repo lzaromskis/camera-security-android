@@ -10,7 +10,8 @@ public enum ResponseCode {
     NOT_AUTHENTICATED(20),
     INVALID_PACKET(30),
     BAD_PASSWORD(40),
-    INVALID_REQUEST(50);
+    INVALID_REQUEST(50),
+    BAD_DATA(60);
 
     private static final Map<Integer, ResponseCode> intToTypeMap = new HashMap<Integer, ResponseCode>();
     static {

@@ -14,23 +14,17 @@
             android:id="@+id/zones_add_zone_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:layout_marginBottom="64dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:clickable="true"
             android:contentDescription="@string/open_the_create_new_monitored_zone_view"
             android:src="@android:drawable/ic_menu_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ListView
-            android:id="@+id/zones_scrollview"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="128dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/zones_listview"
@@ -39,79 +33,202 @@
                 android:orientation="vertical">
 
                 <TableRow
+                    android:id="@+id/zone_row_1"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="#FCFCFC"
-                    android:padding="5dp">
+                    android:background="#F0F0F0"
+                    android:padding="5dp"
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/zone_text_1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.55"
                         android:gravity="center|start"
-                        android:text="Monitored zone"
+                        android:text=""
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <Switch
-                        android:id="@+id/switch1"
+                        android:id="@+id/zone_switch_1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.325"
                         android:gravity="center"
-                        android:text="Is active"
+                        android:text="@string/is_active"
                         android:textColor="#1F1F1F"
                         android:textStyle="italic" />
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/zone_delete_button_1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.125"
+                        android:contentDescription="@string/deletes_the_monitored_zone"
                         android:src="@android:drawable/ic_delete" />
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/zone_row_2"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:background="#FAFAFA"
                     android:padding="5dp"
-                    android:background="#F0F0F0">
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/zone_text_2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.55"
                         android:gravity="center|start"
-                        android:text="Monitored zone"
+                        android:text=""
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <Switch
-                        android:id="@+id/switch12"
+                        android:id="@+id/zone_switch_2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.325"
-                        android:text = "Is active"
+                        android:gravity="center"
+                        android:text="@string/is_active"
                         android:textColor="#1F1F1F"
-                        android:textStyle="italic"
-                        android:gravity="center"/>
+                        android:textStyle="italic" />
 
                     <ImageButton
-                        android:id="@+id/imageButton2"
+                        android:id="@+id/zone_delete_button_2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.125"
+                        android:contentDescription="@string/deletes_the_monitored_zone"
                         android:src="@android:drawable/ic_delete" />
                 </TableRow>
 
-        </LinearLayout>
-        </ListView>
+                <TableRow
+                    android:id="@+id/zone_row_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#F0F0F0"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/zone_text_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.55"
+                        android:gravity="center|start"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/zone_switch_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.325"
+                        android:gravity="center"
+                        android:text="@string/is_active"
+                        android:textColor="#1F1F1F"
+                        android:textStyle="italic" />
+
+                    <ImageButton
+                        android:id="@+id/zone_delete_button_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.125"
+                        android:contentDescription="@string/deletes_the_monitored_zone"
+                        android:src="@android:drawable/ic_delete" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/zone_row_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#FAFAFA"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/zone_text_4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.55"
+                        android:gravity="center|start"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/zone_switch_4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.325"
+                        android:gravity="center"
+                        android:text="@string/is_active"
+                        android:textColor="#1F1F1F"
+                        android:textStyle="italic" />
+
+                    <ImageButton
+                        android:id="@+id/zone_delete_button_4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.125"
+                        android:contentDescription="@string/deletes_the_monitored_zone"
+                        android:src="@android:drawable/ic_delete" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/zone_row_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="#F0F0F0"
+                    android:padding="5dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/zone_text_5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.55"
+                        android:gravity="center|start"
+                        android:text=""
+                        android:textAllCaps="false"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <Switch
+                        android:id="@+id/zone_switch_5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.325"
+                        android:gravity="center"
+                        android:text="@string/is_active"
+                        android:textColor="#1F1F1F"
+                        android:textStyle="italic" />
+
+                    <ImageButton
+                        android:id="@+id/zone_delete_button_5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.125"
+                        android:contentDescription="@string/deletes_the_monitored_zone"
+                        android:src="@android:drawable/ic_delete" />
+                </TableRow>
+
+            </LinearLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

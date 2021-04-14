@@ -8,11 +8,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.lzaromskis.camerasecurity.communication.requests.IRequest;
+import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
 import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
+import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
+import com.lzaromskis.camerasecurity.exceptions.NoResponseException;
+import com.lzaromskis.camerasecurity.exceptions.SendingRequestException;
 import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
 import com.lzaromskis.camerasecurity.ui.login.LoginFragment;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 public class RequestSenderSingleton {
 
@@ -26,7 +31,7 @@ public class RequestSenderSingleton {
         serializer = new PacketDataSerializer();
     }
 
-    public PacketData sendRequest(Fragment fragment, IRequest request) {
+    public PacketData sendRequest(Fragment fragment, IRequest request) throws UserNotAuthenticatedException, SendingRequestException, NoResponseException, SocketTimeoutException {
         try {
             PacketData packet = request.getPacketData();
             String hostname = SharedPrefs.readString(SharedPrefs.HOSTNAME);
@@ -34,21 +39,14 @@ public class RequestSenderSingleton {
                 hostname = "10.0.2.2";
             Client client = new Client(hostname);
             String response = client.sendRequest(serializer.serialize(packet));
+            if (response == null)
+                throw new NoResponseException("Connection timed out");
             return serializer.deserialize(response);
-        } catch (UserNotAuthenticatedException e) {
-            Fragment newFragment = new LoginFragment();
-            FragmentManager manager = fragment.getActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(fragment.getId(), newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidHostnameException e) {
-            e.printStackTrace();
+        } catch (SocketTimeoutException ex) {
+            throw ex;
+        } catch (IOException | InvalidHostnameException | InvalidResponseException e) {
+            throw new SendingRequestException(e.getMessage());
         }
-
-        return null;
     }
 
     public static RequestSenderSingleton getInstance() {

@@ -3,42 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.lzaromskis.camerasecurity.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.lzaromskis.camerasecurity.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.lzaromskis.camerasecurity.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+    app:startDestination="@+id/navigation_login">
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.lzaromskis.camerasecurity.ui.login.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_monitored_zones"
+            app:destination="@id/navigation_monitored_zones" />
+        <action
+            android:id="@+id/action_navigation_login_self"
+            app:destination="@id/navigation_login" />
+        <argument
+            android:name="redirect_reason"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="hostname"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_camera_feed"
         android:name="com.lzaromskis.camerasecurity.ui.camerafeed.LiveCameraFeed"
         android:label="Camera feed"
-        tools:layout="@layout/fragment_live_camera_feed" />
+        tools:layout="@layout/fragment_live_camera_feed" >
+        <action
+            android:id="@+id/action_navigation_camera_feed_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_monitored_zones"
         android:name="com.lzaromskis.camerasecurity.ui.monitoredzones.MonitoredZonesFragment"
         android:label="Monitored zones"
-        tools:layout="@layout/fragment_monitored_zones" />
+        tools:layout="@layout/fragment_monitored_zones" >
+        <action
+            android:id="@+id/action_navigation_monitored_zones_to_navigation_add_monitored_zone"
+            app:destination="@id/navigation_add_monitored_zone"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_navigation_monitored_zones_to_navigation_login"
+            app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_monitored_zones_self"
+            app:destination="@id/navigation_monitored_zones" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_monitored_zone"
+        android:name="com.lzaromskis.camerasecurity.ui.addmonitoredzone.AddMonitoredZoneFragment"
+        android:label="Add monitored zone"
+        tools:layout="@layout/fragment_add_monitored_zone">
+        <action
+            android:id="@+id/action_navigation_add_monitored_zone_to_navigation_monitored_zones"
+            app:destination="@id/navigation_monitored_zones"
+            app:popUpTo="@id/navigation_monitored_zones"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_add_monitored_zone_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_alert_list"
+        android:name="com.lzaromskis.camerasecurity.ui.alertlist.AlertListFragment"
+        android:label="Alerts"
+        tools:layout="@layout/fragment_alert_list" >
+        <action
+            android:id="@+id/action_navigation_alert_list_to_navigation_alert_view"
+            app:destination="@id/navigation_alert_view" />
+        <action
+            android:id="@+id/action_navigation_alert_list_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_alert_view"
+        android:name="com.lzaromskis.camerasecurity.ui.alert.AlertViewFragment"
+        android:label="Alert view"
+        tools:layout="@layout/fragment_alert_view">
+        <argument
+            android:name="alert_name"
+            app:argType="string"
+            android:defaultValue=""/>
+        <action
+            android:id="@+id/action_navigation_alert_view_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:popUpTo="@id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

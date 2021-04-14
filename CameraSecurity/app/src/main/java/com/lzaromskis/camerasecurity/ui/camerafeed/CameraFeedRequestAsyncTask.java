@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
+import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
 import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
 
 import java.util.Base64;
@@ -23,12 +25,13 @@ public final class CameraFeedRequestAsyncTask extends BaseSendRequestAsyncTask {
     @Override
     protected void prepareObjects(Object... objects) {
         super.prepareObjects(objects);
-        _view = (ImageView)objects[2];
-        _textView = (TextView)objects[3];
+        _view = (ImageView)objects[3];
+        if (objects[4] != null)
+            _textView = (TextView)objects[4];
     }
 
     @Override
-    protected void processResponse(PacketData packet) {
+    protected void processResponse(PacketData packet) throws InvalidResponseException {
         String imageData = packet.getAttribute(PacketAttribute.IMAGE.getValue());
         if (imageData != null)
         {
@@ -38,6 +41,15 @@ public final class CameraFeedRequestAsyncTask extends BaseSendRequestAsyncTask {
             } catch (Exception ignored) {
             }
         }
+        else {
+            throw new InvalidResponseException("Packet is missing image data");
+        }
+
+    }
+
+    @Override
+    protected void setNavigationToLoginId() {
+        _navigationToLoginId = R.id.action_navigation_camera_feed_to_navigation_login;
     }
 
     @Override
@@ -48,9 +60,11 @@ public final class CameraFeedRequestAsyncTask extends BaseSendRequestAsyncTask {
                 _view.invalidate();
             }
         } catch (Exception ex) {
-            _textView.clearComposingText();
-            _textView.setText(ex.getMessage());
-            _textView.invalidate();
+            if (_textView != null) {
+                _textView.clearComposingText();
+                _textView.setText(ex.getMessage());
+                _textView.invalidate();
+            }
         }
     }
 }

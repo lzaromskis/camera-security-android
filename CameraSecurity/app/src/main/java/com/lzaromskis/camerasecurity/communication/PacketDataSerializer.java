@@ -3,7 +3,7 @@ package com.lzaromskis.camerasecurity.communication;
 import java.util.Enumeration;
 
 public class PacketDataSerializer {
-    private static final String KEY_VALUE_SEPARATOR = "&";
+    private static final String KEY_VALUE_SEPARATOR = "=";
     private static final String PAIR_SEPARATOR = ";";
 
     public String serialize(PacketData data) {
@@ -27,12 +27,13 @@ public class PacketDataSerializer {
         PacketData packet = new PacketData();
 
         for (String d : data.split(PAIR_SEPARATOR)) {
-            String[] pair = d.split(KEY_VALUE_SEPARATOR);
-
-            if (pair.length != 2)
+            int length = d.length();
+            int split_index = d.indexOf(KEY_VALUE_SEPARATOR);
+            if (split_index == -1 || split_index == length - 1)
                 continue;
-
-            packet.addAttribute(pair[0], pair[1]);
+            String key = d.substring(0, split_index);
+            String value = d.substring(split_index + 1);
+            packet.addAttribute(key, value);
         }
 
         return packet;

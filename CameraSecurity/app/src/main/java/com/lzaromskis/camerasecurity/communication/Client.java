@@ -1,21 +1,14 @@
 package com.lzaromskis.camerasecurity.communication;
 
-import android.os.AsyncTask;
-
 import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
-import kotlin.text.Charsets;
+import java.net.SocketTimeoutException;
 
 public class Client{
 
@@ -36,39 +29,38 @@ public class Client{
         _buffer = new char[BUFFER_SIZE];
     }
 
-    public String sendRequest(String request) throws InvalidHostnameException, IOException {
-        try {
+    public String sendRequest(String request) throws InvalidHostnameException, InvalidResponseException, IOException, SocketTimeoutException {
             int bytesRead;
             char[] sizeBufferChars = new char[8];
-            byte[] sizeBufferBytes = new byte[4];
             Socket socket = new Socket();
             InetSocketAddress address =  new InetSocketAddress(_host, _port);
             if (address.isUnresolved())
                 throw new InvalidHostnameException("The host '" + _host + "' cannot be resolved.");
-            socket.connect(address);
+            socket.setSoTimeout(2500);
+            socket.connect(address, socket.getSoTimeout());
             PrintWriter writer = new PrintWriter(socket.getOutputStream());
             writer.print(request);
             writer.flush();
-            //BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             InputStreamReader reader = new InputStreamReader(socket.getInputStream());
             bytesRead = reader.read(sizeBufferChars, 0, 8);
             if (bytesRead != 8)
                 throw new InvalidResponseException("The received response is invalid.");
             String sizeString = new String(sizeBufferChars);
             int size = Integer.parseInt(sizeString);
-
-            for (bytesRead = 0; bytesRead < size; ) {
-                bytesRead += reader.read(_buffer, bytesRead, 1);
+            try {
+                for (bytesRead = 0; bytesRead < size; ) {
+                    bytesRead += reader.read(_buffer, bytesRead, 16);
+                }
+                if (bytesRead != size)
+                    throw new InvalidResponseException("The received response is invalid.");
+            } catch (IndexOutOfBoundsException ignored) {
+                return null;
+            } finally {
+                writer.close();
+                reader.close();
+                socket.close();
             }
-            if (bytesRead != size)
-                throw new InvalidResponseException("The received response is invalid.");
-            //bytesRead = reader.read(_buffer, 0, size);
-            writer.close();
-            reader.close();
-            socket.close();
+
             return new String(_buffer, 0, size);
-        } catch (Exception ex) {
-            return null;
-        }
     }
 }

@@ -39,7 +39,7 @@ public class LiveCameraFeed extends Fragment {
 
         Handler handler = new Handler();
         IRequest feedRequest = new CameraFeedRequest();
-        _feedUpdater = new CameraFeedRepeater(handler, 750, this, feedRequest, imageView, textView);
+        _feedUpdater = new CameraFeedRepeater(handler, 750, this, root, feedRequest, imageView, textView);
         handler.post(_feedUpdater);
         return root;
     }

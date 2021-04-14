@@ -10,12 +10,13 @@ public enum RequestCode {
     CHANGE_PASSWORD(25),
     GET_IMAGE(35),
     GET_IMAGE_RAW(45),
-    CREATE_ZONE(55),
-    SET_ZONE_ACTIVITY(65),
-    DELETE_ZONE(75),
-    GET_ALERT_LIST(85),
-    GET_ALERT_IMAGE(95),
-    GET_HEATMAP(105);
+    GET_ZONES(55),
+    CREATE_ZONE(65),
+    SET_ZONE_ACTIVITY(75),
+    DELETE_ZONE(85),
+    GET_ALERT_LIST(95),
+    GET_ALERT_IMAGE(105),
+    GET_HEATMAP(115);
 
     private static final Map<Integer, RequestCode> intToTypeMap = new HashMap<Integer, RequestCode>();
     static {

@@ -1,5 +1,8 @@
 package com.lzaromskis.camerasecurity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,11 +25,21 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_login, R.id.navigation_camera_feed, R.id.navigation_monitored_zones)
+                R.id.navigation_login, R.id.navigation_alert_list, R.id.navigation_monitored_zones, R.id.navigation_camera_feed)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("ALERT_CHANNEL",
+                    "Alert channel",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Notifications for alerts");
+            mNotificationManager.createNotificationChannel(channel);
+        }
     }
 
 
