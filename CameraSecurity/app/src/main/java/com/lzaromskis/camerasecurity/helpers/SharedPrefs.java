@@ -9,6 +9,8 @@ public class SharedPrefs {
     public static final String HOSTNAME = "hostname";
     public static final String SECRET = "secret";
     public static final String IS_SECRET_VALID = "is_secret_valid";
+    public static final String DRAW_ZONES = "draw_zones";
+    public static final String DRAW_DETECTIONS = "draw_detections";
 
     private SharedPrefs() {
 

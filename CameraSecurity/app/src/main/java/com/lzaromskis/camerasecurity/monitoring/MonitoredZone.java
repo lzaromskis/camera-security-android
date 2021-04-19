@@ -6,11 +6,13 @@ public final class MonitoredZone {
     private final String _name;
     private final BoundingBox _bounds;
     private boolean _active;
+    private String[] _labels;
 
-    public MonitoredZone(String name, BoundingBox bounds) {
+    public MonitoredZone(String name, BoundingBox bounds, String[] labels) {
         _name = name;
         _bounds = bounds;
         _active = false;
+        _labels = labels;
     }
 
     public String getName() {
@@ -19,6 +21,10 @@ public final class MonitoredZone {
 
     public BoundingBox getBounds() {
         return _bounds;
+    }
+
+    public String[] getLabels() {
+        return _labels;
     }
 
     public boolean isActive() {

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -47,8 +46,9 @@ public class AlertClient {
                 WebSocketFactory wsFactory = new WebSocketFactory();
                 try {
                     _ws = wsFactory.createSocket("ws://" + _host + ":" + String.valueOf(_port));
-                    _ws.connect();
                     _ws.setPingInterval(5 * 1000);
+                    _ws.connect();
+                    _ws.setAutoFlush(true);
                     _ws.sendPing("ping");
                     _ws.addListener(new WebSocketAdapter() {
                         @Override
@@ -62,12 +62,9 @@ public class AlertClient {
                                         .setContentText("Received alert from server")
                                         .setPriority(NotificationCompat.PRIORITY_MAX);
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(_context.getApplicationContext());
-
                                 // notificationId is a unique int for each notification that you must define
                                 notificationManager.notify(rand.nextInt(), builder.build());
-
                             }
-                            websocket.sendText("Received");
                         }
                     });
 

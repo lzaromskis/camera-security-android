@@ -16,7 +16,8 @@ public enum RequestCode {
     DELETE_ZONE(85),
     GET_ALERT_LIST(95),
     GET_ALERT_IMAGE(105),
-    GET_HEATMAP(115);
+    GET_HEATMAP(115),
+    CREATE_ZONE_INIT(125);
 
     private static final Map<Integer, RequestCode> intToTypeMap = new HashMap<Integer, RequestCode>();
     static {

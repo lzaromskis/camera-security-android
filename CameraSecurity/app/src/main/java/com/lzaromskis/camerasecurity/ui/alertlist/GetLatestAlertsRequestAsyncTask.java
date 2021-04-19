@@ -30,7 +30,7 @@ public class GetLatestAlertsRequestAsyncTask extends BaseSendRequestAsyncTask {
             throw new InvalidResponseException("The packet does not contain alert list data");
 
         String[] alerts = alertData.split(",");
-        int upTo = alertData.length() > 10 ? 9 : alertData.length();
+        int upTo = alerts.length > 10 ? 9 : alerts.length;
         runOnUiThread(() -> {
             for (int i = 0; i < upTo; i++) {
                 TextView view = _textViews.get(i);

@@ -45,9 +45,9 @@
             android:layout_width="175dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/set_top_left_corner"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/add_zone_select_labels"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
@@ -56,9 +56,9 @@
             android:layout_width="175dp"
             android:layout_height="60dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/set_bottom_right_corner"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/add_zone_select_labels"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
@@ -67,14 +67,27 @@
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="152dp"
+            android:layout_marginBottom="16dp"
+            android:autofillHints=""
             android:ems="10"
             android:hint="@string/monitored_zone_name"
             android:inputType="text"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/add_zone_bottom_right_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:autofillHints="" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/add_zone_select_labels"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/select_labels_to_trigger_zone"
+            app:layout_constraintBottom_toTopOf="@+id/add_zone_add_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

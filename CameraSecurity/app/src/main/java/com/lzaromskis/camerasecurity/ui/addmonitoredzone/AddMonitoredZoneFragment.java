@@ -14,15 +14,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lzaromskis.camerasecurity.MainActivity;
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.AddMonitoredZoneRequest;
+import com.lzaromskis.camerasecurity.communication.requests.BaseRequest;
 import com.lzaromskis.camerasecurity.communication.requests.CameraFeedRequest;
+import com.lzaromskis.camerasecurity.communication.requests.GetDataForCreatingZoneRequest;
 import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
 import com.lzaromskis.camerasecurity.ui.camerafeed.CameraFeedRequestAsyncTask;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,8 +52,12 @@ public class AddMonitoredZoneFragment extends Fragment {
     private Button _setTopLeftButton;
     private Button _setBottomRightButton;
     private Button _addZoneButton;
+    private Button _selectLabelsButton;
     private State _state;
     private EditText _nameInput;
+
+    private ArrayList<String> _selectedLabels;
+    private ArrayList<String> _tempSelectedLabels;
 
     public AddMonitoredZoneFragment() {
         // Required empty public constructor
@@ -75,6 +85,7 @@ public class AddMonitoredZoneFragment extends Fragment {
 
         _setTopLeftButton = root.findViewById(R.id.add_zone_top_left_button);
         _setBottomRightButton = root.findViewById(R.id.add_zone_bottom_right_button);
+        _selectLabelsButton = root.findViewById(R.id.add_zone_select_labels);
         _addZoneButton = root.findViewById(R.id.add_zone_add_button);
 
         _nameInput = root.findViewById(R.id.add_zone_name_input);
@@ -82,7 +93,11 @@ public class AddMonitoredZoneFragment extends Fragment {
         _topLeftMarker.setVisibility(View.INVISIBLE);
         _bottomRightMarker.setVisibility(View.INVISIBLE);
 
-        new CameraFeedRequestAsyncTask().execute(this, root, new CameraFeedRequest(), _cameraView, null);
+        _selectedLabels = new ArrayList<>();
+
+        BaseRequest getRequest = new GetDataForCreatingZoneRequest();
+        new GetDataForCreatingZoneRequestAsyncTask().execute(this, root, getRequest, _cameraView, _selectLabelsButton, _selectedLabels);
+        new CameraFeedRequestAsyncTask().execute(this, root, new CameraFeedRequest(false, false), _cameraView, null);
 
         Context context = getContext();
         _setTopLeftButton.setOnClickListener(v -> {
@@ -94,6 +109,8 @@ public class AddMonitoredZoneFragment extends Fragment {
             _state = State.SET_BOTTOM_RIGHT;
             Toast.makeText(context, "Select the bottom right corner", Toast.LENGTH_SHORT).show();
         });
+
+
 
         _nameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -130,7 +147,7 @@ public class AddMonitoredZoneFragment extends Fragment {
             String name = _nameInput.getText().toString();
             BoundingBox bounds = new BoundingBox(topLeftX, topLeftY, bottomRightX, bottomRightY);
 
-            MonitoredZone zone = new MonitoredZone(name, bounds);
+            MonitoredZone zone = new MonitoredZone(name, bounds, _selectedLabels.toArray(new String[0]));
             AddMonitoredZoneRequest request = new AddMonitoredZoneRequest(zone);
             new AddMonitoredZoneRequestAsyncTask().execute(this, root, request);
         });
@@ -140,8 +157,11 @@ public class AddMonitoredZoneFragment extends Fragment {
         return root;
     }
 
-    private void setAddZoneButtonEnabled() {
-        _addZoneButton.setEnabled(_topLeftMarker.getVisibility() == View.VISIBLE && _bottomRightMarker.getVisibility() == View.VISIBLE && _nameInput.getText().length() != 0);
+    public void setAddZoneButtonEnabled() {
+        _addZoneButton.setEnabled(_topLeftMarker.getVisibility() == View.VISIBLE
+                && _bottomRightMarker.getVisibility() == View.VISIBLE
+                && _nameInput.getText().length() != 0
+                && _selectedLabels.size() != 0);
     }
 
     private boolean onTouch(View v, MotionEvent event) {

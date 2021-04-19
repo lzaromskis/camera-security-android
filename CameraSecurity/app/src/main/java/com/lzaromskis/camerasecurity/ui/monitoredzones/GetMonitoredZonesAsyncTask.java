@@ -1,9 +1,12 @@
 package com.lzaromskis.camerasecurity.ui.monitoredzones;
 
 import android.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.PopupMenu;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
@@ -53,17 +56,23 @@ public class GetMonitoredZonesAsyncTask extends BaseSendRequestAsyncTask {
                 MonitoredZoneViews view = _monitoredZoneViews.get(i);
                 String name = zone.getName();
                 view.getRow().setVisibility(View.VISIBLE);
-                view.getTextView().setText(name);
+                TextView textView = view.getTextView();
+                textView.setText(name);
+                textView.setOnClickListener((v) -> {
+                    PopupMenu popup = new PopupMenu(_fragment.getContext(), textView);
+                    for (String label: zone.getLabels()) {
+                        MenuItem item = popup.getMenu().add(label);
+                        item.setCheckable(false);
+                    }
+                    popup.show();
+                });
                 Switch sw = view.getSwitch();
                 sw.setChecked(zone.isActive());
                 setSwitchText(sw, zone.isActive());
-                sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        SetMonitoredZoneActiveStateRequest request = new SetMonitoredZoneActiveStateRequest(name, isChecked);
-                        setSwitchText(sw, isChecked);
-                        new SetMonitoredZoneActiveStateAsyncTask().execute(_fragment, _root, request);
-                    }
+                sw.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    SetMonitoredZoneActiveStateRequest request = new SetMonitoredZoneActiveStateRequest(name, isChecked);
+                    setSwitchText(sw, isChecked);
+                    new SetMonitoredZoneActiveStateAsyncTask().execute(_fragment, _root, request);
                 });
                 view.getDeleteButton().setOnClickListener((View v) -> {
                     new AlertDialog.Builder(v.getContext())
@@ -73,7 +82,6 @@ public class GetMonitoredZonesAsyncTask extends BaseSendRequestAsyncTask {
                             .setPositiveButton(android.R.string.yes, (dialog, which) -> {
                                 DeleteMonitoredZoneRequest request = new DeleteMonitoredZoneRequest(name);
                                 new DeleteMonitoredZoneRequestAsyncTask().execute(_fragment, _root, request);
-                                // Toast.makeText(v.getContext(), "Deleted " + name, Toast.LENGTH_LONG).show();
                             })
                             .setNegativeButton(android.R.string.no, ((dialog, which) -> {
 

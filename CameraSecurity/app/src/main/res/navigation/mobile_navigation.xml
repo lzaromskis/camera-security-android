@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/navigation_camera_feed"
-        android:name="com.lzaromskis.camerasecurity.ui.camerafeed.LiveCameraFeed"
+        android:name="com.lzaromskis.camerasecurity.ui.camerafeed.LiveCameraFeedFragment"
         android:label="Camera feed"
         tools:layout="@layout/fragment_live_camera_feed" >
         <action

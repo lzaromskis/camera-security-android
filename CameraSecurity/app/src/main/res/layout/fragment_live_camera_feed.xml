@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.camerafeed.LiveCameraFeed">
+    tools:context=".ui.camerafeed.LiveCameraFeedFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -28,10 +28,32 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/feed_camera_view"
+            app:layout_constraintBottom_toTopOf="@+id/feed_draw_zones"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/feed_draw_detections"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingHorizontal="10dp"
+            android:text="@string/draw_detected_objects"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_camera_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Switch
+            android:id="@+id/feed_draw_zones"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingHorizontal="10dp"
+            android:text="@string/draw_monitored_zones"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/feed_draw_detections"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

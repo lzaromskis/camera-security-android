@@ -24,4 +24,7 @@
     <string name="set_top_left_corner">Set top left corner (o)</string>
     <string name="monitored_zone_name">Monitored zone name</string>
     <string name="displays_the_alert_image">Displays the alert image</string>
+    <string name="draw_detected_objects">Draw detected objects</string>
+    <string name="draw_monitored_zones">Draw monitored zones</string>
+    <string name="select_labels_to_trigger_zone">Select labels to trigger zone</string>
 </resources>

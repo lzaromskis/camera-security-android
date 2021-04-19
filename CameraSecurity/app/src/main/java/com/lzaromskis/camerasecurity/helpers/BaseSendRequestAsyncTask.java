@@ -80,7 +80,7 @@ public abstract class BaseSendRequestAsyncTask extends AsyncTask<Object, Void, V
         navigateToLoginBecause("You are not authenticated");
     }
 
-    private void navigateToLoginBecause(String reason) {
+    protected void navigateToLoginBecause(String reason) {
         Bundle bundle = new Bundle();
         bundle.putString("redirect_reason", reason);
         Bundle currentFragmentBundle = _fragment.getArguments();
@@ -93,6 +93,13 @@ public abstract class BaseSendRequestAsyncTask extends AsyncTask<Object, Void, V
 
     protected void navigateToFragment(int navigationActionId) {
         runOnUiThread(() -> Navigation.findNavController(_root).navigate(navigationActionId));
+    }
+
+    protected void navigateToFragment(int navigationActionId, String toastMessage) {
+        runOnUiThread(() -> {
+            Toast.makeText(_fragment.getContext(), toastMessage, Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(_root).navigate(navigationActionId);
+        });
     }
 
     protected void navigateToFragment(int navigationActionId, Bundle bundle) {

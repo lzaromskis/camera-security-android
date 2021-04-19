@@ -3,9 +3,11 @@ package com.lzaromskis.camerasecurity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.lzaromskis.camerasecurity.communication.AlertServiceRestarter;
 import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
             channel.setDescription("Notifications for alerts");
             mNotificationManager.createNotificationChannel(channel);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        //stopService(mServiceIntent);
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("restartservice");
+        broadcastIntent.setClass(this, AlertServiceRestarter.class);
+        this.sendBroadcast(broadcastIntent);
+        super.onDestroy();
     }
 
 
