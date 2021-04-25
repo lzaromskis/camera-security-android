@@ -27,130 +27,95 @@ import com.lzaromskis.camerasecurity.communication.requests.LoginRequest;
 import com.lzaromskis.camerasecurity.communication.requests.asynctasks.LoginRequestAsyncTask;
 import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
+import org.w3c.dom.Text;
+
 public class LoginFragment extends Fragment {
 
-    private LoginViewModel loginViewModel;
+    private EditText _hostname;
+    private EditText _password;
+    private Button _loginButton;
+    private ProgressBar _progressBar;
+    private TextView _errorMessage;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
-    }
+        View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+        _hostname = root.findViewById(R.id.server_hostname);
+        _password = root.findViewById(R.id.password);
+        _loginButton = root.findViewById(R.id.login);
+        _progressBar = root.findViewById(R.id.loading);
+        _errorMessage = root.findViewById(R.id.login_error_text);
 
-        final EditText usernameEditText = view.findViewById(R.id.server_hostname);
-        final EditText passwordEditText = view.findViewById(R.id.password);
-        final Button loginButton = view.findViewById(R.id.login);
-        final ProgressBar loadingProgressBar = view.findViewById(R.id.loading);
-        final TextView errorMessage = view.findViewById(R.id.login_error_text);
-        final Fragment loginFragment = this;
-
-        loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
-            @Override
-            public void onChanged(@Nullable LoginFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-            }
-        });
-
-        loginViewModel.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                }
-            }
-        });
-
-        TextWatcher afterTextChangedListener = new TextWatcher() {
+        _hostname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // ignore
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ignore
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                String hostname = usernameEditText.getText().toString();
-                Bundle bundle = getArguments();
-                if (bundle != null) {
-                    bundle.putString("hostname", hostname);
-                }
-                loginViewModel.loginDataChanged(hostname, passwordEditText.getText().toString());
+                setLoginButtonEnabled();
             }
-        };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
-            }
-            return false;
         });
 
-        loginButton.setOnClickListener(v -> {
-            loadingProgressBar.setVisibility(View.VISIBLE);
-            errorMessage.setText("");
-            errorMessage.invalidate();
-            String hostname = usernameEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
+        _password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() < 4) {
+                    _password.setError(getString(R.string.invalid_password));
+                } else {
+                    _password.setError(null);
+                }
+
+                setLoginButtonEnabled();
+            }
+        });
+
+        _loginButton.setOnClickListener(v -> {
+            _progressBar.setVisibility(View.VISIBLE);
+            _errorMessage.setText("");
+            _errorMessage.invalidate();
+            String hostname = _hostname.getText().toString();
+            String password = _password.getText().toString();
 
             SharedPrefs.writeString(SharedPrefs.HOSTNAME, hostname);
             IRequest request = new LoginRequest(password);
-            new LoginRequestAsyncTask().execute(loginFragment, view, request, errorMessage, passwordEditText, loadingProgressBar);
+            new LoginRequestAsyncTask().execute(this, root, request, _errorMessage, _password, _progressBar);
         });
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             String reason = getArguments().getString("redirect_reason");
             String hostname = getArguments().getString("hostname");
-            usernameEditText.setText(hostname);
-            errorMessage.setTextColor(Color.RED);
-            errorMessage.setText(reason);
+            _hostname.setText(hostname);
+            _errorMessage.setTextColor(Color.RED);
+            _errorMessage.setText(reason);
+            _errorMessage.invalidate();
         }
+
+        return root;
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(getContext().getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void showLoginFailed(@StringRes Integer errorString) {
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(
-                    getContext().getApplicationContext(),
-                    errorString,
-                    Toast.LENGTH_LONG).show();
-        }
+    private void setLoginButtonEnabled() {
+        _loginButton.setEnabled(_hostname.getText().toString().trim().length() != 0 && _password.getText().length() >= 4);
     }
 }

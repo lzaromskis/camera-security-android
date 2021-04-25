@@ -6,8 +6,7 @@ import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
-import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidResponseException;
 
 public class SetMonitoredZoneActiveStateAsyncTask extends BaseSendRequestAsyncTask {
     @Override

@@ -1,6 +1,6 @@
 package com.lzaromskis.camerasecurity.communication.responses;
 
-import com.lzaromskis.camerasecurity.exceptions.InvalidEnumValueException;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidEnumValueException;
 
 import java.util.HashMap;
 import java.util.Map;

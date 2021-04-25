@@ -17,8 +17,9 @@ import java.io.IOException;
 import java.util.Random;
 
 public class AlertClient {
-    public static AlertClient instance;
-    private static Random rand = new Random();
+    @SuppressLint("StaticFieldLeak")
+    private static AlertClient instance;
+    private static final Random rand = new Random();
 
     private final String _host;
     private final int _port;
@@ -75,8 +76,6 @@ public class AlertClient {
                 return null;
             }
         }.execute();
-
-
     }
 
     public void StopListening() {

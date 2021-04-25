@@ -1,4 +1,6 @@
-package com.lzaromskis.camerasecurity.communication;
+package com.lzaromskis.camerasecurity.communication.serializers;
+
+import com.lzaromskis.camerasecurity.communication.PacketData;
 
 import java.util.Enumeration;
 

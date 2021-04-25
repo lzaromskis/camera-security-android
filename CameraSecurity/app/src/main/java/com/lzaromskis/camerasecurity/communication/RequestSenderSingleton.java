@@ -5,10 +5,11 @@ import android.security.keystore.UserNotAuthenticatedException;
 import androidx.fragment.app.Fragment;
 
 import com.lzaromskis.camerasecurity.communication.requests.IRequest;
-import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
-import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.exceptions.NoResponseException;
-import com.lzaromskis.camerasecurity.exceptions.SendingRequestException;
+import com.lzaromskis.camerasecurity.communication.serializers.PacketDataSerializer;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidHostnameException;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidResponseException;
+import com.lzaromskis.camerasecurity.utility.exceptions.NoResponseException;
+import com.lzaromskis.camerasecurity.utility.exceptions.SendingRequestException;
 import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 import java.io.IOException;

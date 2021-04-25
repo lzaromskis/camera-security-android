@@ -15,9 +15,9 @@ import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.communication.RequestSenderSingleton;
 import com.lzaromskis.camerasecurity.communication.requests.IRequest;
 import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
-import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.exceptions.NoResponseException;
-import com.lzaromskis.camerasecurity.exceptions.SendingRequestException;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidResponseException;
+import com.lzaromskis.camerasecurity.utility.exceptions.NoResponseException;
+import com.lzaromskis.camerasecurity.utility.exceptions.SendingRequestException;
 import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 import java.net.SocketTimeoutException;

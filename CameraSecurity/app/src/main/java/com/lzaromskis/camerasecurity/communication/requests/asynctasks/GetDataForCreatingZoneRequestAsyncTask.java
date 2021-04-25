@@ -11,8 +11,7 @@ import android.widget.PopupMenu;
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
-import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidResponseException;
 import com.lzaromskis.camerasecurity.ui.addmonitoredzone.AddMonitoredZoneFragment;
 
 import java.util.ArrayList;

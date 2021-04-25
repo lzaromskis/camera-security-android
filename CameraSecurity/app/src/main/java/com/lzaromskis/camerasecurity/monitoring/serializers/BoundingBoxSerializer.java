@@ -1,6 +1,6 @@
 package com.lzaromskis.camerasecurity.monitoring.serializers;
 
-import com.lzaromskis.camerasecurity.exceptions.DeserializationFailedException;
+import com.lzaromskis.camerasecurity.utility.exceptions.DeserializationFailedException;
 import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
 
 public class BoundingBoxSerializer {

@@ -1,7 +1,7 @@
 package com.lzaromskis.camerasecurity.communication;
 
-import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
-import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidHostnameException;
+import com.lzaromskis.camerasecurity.utility.exceptions.InvalidResponseException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
