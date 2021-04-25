@@ -2,49 +2,22 @@ package com.lzaromskis.camerasecurity.ui.monitoredzones;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.Switch;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.GetAllMonitoredZonesRequest;
-import com.lzaromskis.camerasecurity.helpers.Converter;
-import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
-import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
-import com.lzaromskis.camerasecurity.monitoring.MonitoredZoneCollection;
-import com.lzaromskis.camerasecurity.ui.addmonitoredzone.AddMonitoredZoneFragment;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.GetMonitoredZonesAsyncTask;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.

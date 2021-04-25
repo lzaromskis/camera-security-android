@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.ui.addmonitoredzone;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.widget.Toast;
 
@@ -7,12 +7,11 @@ import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
 
 public class AddMonitoredZoneRequestAsyncTask extends BaseSendRequestAsyncTask {
     @Override
-    protected void processResponse(PacketData packet) throws InvalidResponseException {
-        int code = Integer.parseInt(packet.getAttribute(PacketAttribute.CODE.getValue()));
+    protected void processResponse(PacketData packet, int code) throws InvalidResponseException {
         if (code == ResponseCode.OK.getValue()) {
             navigateToFragment(R.id.action_navigation_add_monitored_zone_to_navigation_monitored_zones);
             return;

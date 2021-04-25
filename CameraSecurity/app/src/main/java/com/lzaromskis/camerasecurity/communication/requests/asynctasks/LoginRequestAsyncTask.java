@@ -1,9 +1,7 @@
-package com.lzaromskis.camerasecurity.ui.login;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,22 +11,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
-import androidx.work.WorkRequest;
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 
 import com.lzaromskis.camerasecurity.R;
-import com.lzaromskis.camerasecurity.communication.AlertClient;
 import com.lzaromskis.camerasecurity.communication.AlertService;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public class LoginRequestAsyncTask extends BaseSendRequestAsyncTask {
 
@@ -54,9 +45,9 @@ public class LoginRequestAsyncTask extends BaseSendRequestAsyncTask {
     }
 
     @Override
-    protected void processResponse(PacketData packet) {
-        _responseCode = Integer.parseInt(packet.getAttribute(PacketAttribute.CODE.getValue()));
-        if (_responseCode == ResponseCode.OK.getValue()) {
+    protected void processResponse(PacketData packet, int code) {
+        _responseCode = code;
+        if (code == ResponseCode.OK.getValue()) {
             String secret = packet.getAttribute(PacketAttribute.SECRET.getValue());
             SharedPrefs.writeString(SharedPrefs.SECRET, secret);
             SharedPrefs.writeBoolean(SharedPrefs.IS_SECRET_VALID, true);
@@ -84,25 +75,6 @@ public class LoginRequestAsyncTask extends BaseSendRequestAsyncTask {
         else {
             _textView.setTextColor(Color.GREEN);
             _textView.setText("Login successful");
-            // TODO: Start websocket background service
-            /*
-            Context context = _fragment.getActivity().getBaseContext();
-            Intent notificationIntent = new Intent(context, AlertService.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-            Notification notification = new Notification.Builder(context, "ALERT_CHANNEL")
-                    .setContentTitle("Alert listener")
-                    .setContentText("Alert listener websocket active")
-                    .setSmallIcon(androidx.activity.R.drawable.notification_icon_background)
-                    .setContentIntent(pendingIntent)
-                    .setTicker("Ticker text")
-                    .build();
-
-            context.startForeground()
-*/
-
-/*
-            OneTimeWorkRequest work = new OneTimeWorkRequest.Builder(WebsocketWorker.class).build();
-            WorkManager.getInstance(context).enqueue(work).getResult();*/
 
             AlertService service = new AlertService();
             Intent serviceIntent = new Intent(_fragment.getActivity(), service.getClass());

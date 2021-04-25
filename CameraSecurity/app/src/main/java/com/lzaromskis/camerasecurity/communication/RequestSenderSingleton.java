@@ -1,20 +1,15 @@
 package com.lzaromskis.camerasecurity.communication;
 
-import android.content.Context;
 import android.security.keystore.UserNotAuthenticatedException;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.lzaromskis.camerasecurity.communication.requests.IRequest;
-import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
 import com.lzaromskis.camerasecurity.exceptions.InvalidHostnameException;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
 import com.lzaromskis.camerasecurity.exceptions.NoResponseException;
 import com.lzaromskis.camerasecurity.exceptions.SendingRequestException;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
-import com.lzaromskis.camerasecurity.ui.login.LoginFragment;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;

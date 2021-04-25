@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.helpers;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
@@ -18,6 +18,7 @@ import com.lzaromskis.camerasecurity.communication.responses.ResponseCode;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
 import com.lzaromskis.camerasecurity.exceptions.NoResponseException;
 import com.lzaromskis.camerasecurity.exceptions.SendingRequestException;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 import java.net.SocketTimeoutException;
 
@@ -36,7 +37,7 @@ public abstract class BaseSendRequestAsyncTask extends AsyncTask<Object, Void, V
         setNavigationToLoginId();
     }
 
-    protected abstract void processResponse(PacketData packet) throws InvalidResponseException;
+    protected abstract void processResponse(PacketData packet, int code) throws InvalidResponseException;
 
     protected abstract void setNavigationToLoginId();
 
@@ -45,9 +46,11 @@ public abstract class BaseSendRequestAsyncTask extends AsyncTask<Object, Void, V
         prepareObjects(objects);
         RequestSenderSingleton requestSender = RequestSenderSingleton.getInstance();
         PacketData response;
+        int code;
         try {
             response = requestSender.sendRequest(_fragment, _request);
-            if (response.getAttribute(PacketAttribute.CODE.getValue()).equals(String.valueOf(ResponseCode.NOT_AUTHENTICATED.getValue()))) {
+            code = Integer.parseInt(response.getAttribute(PacketAttribute.CODE.getValue()));
+            if (code == ResponseCode.NOT_AUTHENTICATED.getValue()) {
                 navigateToLoginBecauseNotAuthenticated();
                 return null;
             }
@@ -66,7 +69,7 @@ public abstract class BaseSendRequestAsyncTask extends AsyncTask<Object, Void, V
         }
         try {
             if (response.isValid())
-                processResponse(response);
+                processResponse(response, code);
             else
                 throw new InvalidResponseException("Received an invalid response");
         } catch (InvalidResponseException e) {

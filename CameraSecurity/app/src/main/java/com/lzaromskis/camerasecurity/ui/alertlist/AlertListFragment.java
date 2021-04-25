@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.GetLatestAlertsRequest;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.GetLatestAlertsRequestAsyncTask;
 
 import java.util.ArrayList;
 

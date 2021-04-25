@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.widget.Switch;
 
-import com.lzaromskis.camerasecurity.communication.CameraViewUpdater;
 import com.lzaromskis.camerasecurity.communication.requests.CameraFeedRequest;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.CameraFeedRequestAsyncTask;
 
 public final class CameraFeedRepeater implements Runnable {
     private final Handler _handler;

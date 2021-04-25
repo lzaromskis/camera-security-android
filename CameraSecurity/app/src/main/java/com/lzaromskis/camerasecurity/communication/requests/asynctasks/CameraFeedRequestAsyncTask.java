@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.ui.camerafeed;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -10,7 +10,7 @@ import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
 
 import java.util.Base64;
 
@@ -31,7 +31,7 @@ public final class CameraFeedRequestAsyncTask extends BaseSendRequestAsyncTask {
     }
 
     @Override
-    protected void processResponse(PacketData packet) throws InvalidResponseException {
+    protected void processResponse(PacketData packet, int code) throws InvalidResponseException {
         String imageData = packet.getAttribute(PacketAttribute.IMAGE.getValue());
         if (imageData != null)
         {

@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.helpers;
+package com.lzaromskis.camerasecurity.utility;
 
 import android.content.Context;
 

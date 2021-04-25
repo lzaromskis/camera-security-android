@@ -7,7 +7,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import com.lzaromskis.camerasecurity.communication.AlertClient;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public class WebsocketWorker extends Worker {
     private final Context _context;

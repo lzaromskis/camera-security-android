@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.ui.addmonitoredzone;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -7,18 +7,17 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.ui.addmonitoredzone.AddMonitoredZoneFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.function.Function;
 
 public class GetDataForCreatingZoneRequestAsyncTask extends BaseSendRequestAsyncTask {
     @SuppressLint("StaticFieldLeak")
@@ -40,7 +39,7 @@ public class GetDataForCreatingZoneRequestAsyncTask extends BaseSendRequestAsync
     }
 
     @Override
-    protected void processResponse(PacketData packet) throws InvalidResponseException {
+    protected void processResponse(PacketData packet, int code) throws InvalidResponseException {
         String imageData = packet.getAttribute(PacketAttribute.IMAGE.getValue());
         if (imageData != null) {
             try {

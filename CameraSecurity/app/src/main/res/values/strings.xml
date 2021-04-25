@@ -27,4 +27,14 @@
     <string name="draw_detected_objects">Draw detected objects</string>
     <string name="draw_monitored_zones">Draw monitored zones</string>
     <string name="select_labels_to_trigger_zone">Select labels to trigger zone</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="repeat_new_password">Repeat new password</string>
+    <string name="passwords_do_not_match">New passwords do not match!</string>
+    <string name="login">Login</string>
+    <string name="change_password">Change password</string>
+    <string name="alerts">Alerts</string>
+    <string name="monitored_zones">Monitored zones</string>
+    <string name="camera_feed">Camera feed</string>
+    <string name="not_authenticated_chpw">You are not authenticated. Login first!</string>
 </resources>

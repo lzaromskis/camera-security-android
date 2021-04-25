@@ -1,9 +1,8 @@
-package com.lzaromskis.camerasecurity.ui.monitoredzones;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -15,10 +14,10 @@ import com.lzaromskis.camerasecurity.communication.requests.DeleteMonitoredZoneR
 import com.lzaromskis.camerasecurity.communication.requests.SetMonitoredZoneActiveStateRequest;
 import com.lzaromskis.camerasecurity.exceptions.DeserializationFailedException;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZoneCollection;
 import com.lzaromskis.camerasecurity.monitoring.serializers.MonitoredZoneCollectionSerializer;
+import com.lzaromskis.camerasecurity.ui.monitoredzones.MonitoredZoneViews;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,7 +32,7 @@ public class GetMonitoredZonesAsyncTask extends BaseSendRequestAsyncTask {
     }
 
     @Override
-    protected void processResponse(PacketData packet) throws InvalidResponseException {
+    protected void processResponse(PacketData packet, int code) throws InvalidResponseException {
         String zonesData = packet.getAttribute(PacketAttribute.ZONES.getValue());
         if (zonesData == null)
             throw new InvalidResponseException("The received packet is missing the monitored zones data");

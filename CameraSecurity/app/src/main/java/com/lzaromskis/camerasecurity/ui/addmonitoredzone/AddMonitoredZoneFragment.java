@@ -14,19 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lzaromskis.camerasecurity.MainActivity;
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.AddMonitoredZoneRequest;
 import com.lzaromskis.camerasecurity.communication.requests.BaseRequest;
 import com.lzaromskis.camerasecurity.communication.requests.CameraFeedRequest;
 import com.lzaromskis.camerasecurity.communication.requests.GetDataForCreatingZoneRequest;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.AddMonitoredZoneRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.GetDataForCreatingZoneRequestAsyncTask;
 import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
-import com.lzaromskis.camerasecurity.ui.camerafeed.CameraFeedRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.CameraFeedRequestAsyncTask;
 
 import java.util.ArrayList;
 

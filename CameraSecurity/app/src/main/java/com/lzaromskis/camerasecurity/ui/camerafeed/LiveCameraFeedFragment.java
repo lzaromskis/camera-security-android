@@ -11,13 +11,12 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import com.lzaromskis.camerasecurity.R;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public class LiveCameraFeedFragment extends Fragment {
 

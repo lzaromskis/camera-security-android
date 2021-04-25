@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.GetAlertImageRequest;
-import com.lzaromskis.camerasecurity.ui.camerafeed.CameraFeedRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.CameraFeedRequestAsyncTask;
 
 /**
  * A simple {@link Fragment} subclass.

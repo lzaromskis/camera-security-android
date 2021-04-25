@@ -1,6 +1,5 @@
 package com.lzaromskis.camerasecurity.ui.login;
 
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +24,8 @@ import android.widget.Toast;
 import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.requests.IRequest;
 import com.lzaromskis.camerasecurity.communication.requests.LoginRequest;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.LoginRequestAsyncTask;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public class LoginFragment extends Fragment {
 

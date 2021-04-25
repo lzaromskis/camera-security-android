@@ -1,4 +1,4 @@
-package com.lzaromskis.camerasecurity.ui.alertlist;
+package com.lzaromskis.camerasecurity.communication.requests.asynctasks;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,7 @@ import com.lzaromskis.camerasecurity.R;
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
 import com.lzaromskis.camerasecurity.exceptions.InvalidResponseException;
-import com.lzaromskis.camerasecurity.helpers.BaseSendRequestAsyncTask;
+import com.lzaromskis.camerasecurity.communication.requests.asynctasks.BaseSendRequestAsyncTask;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class GetLatestAlertsRequestAsyncTask extends BaseSendRequestAsyncTask {
     }
 
     @Override
-    protected void processResponse(PacketData packet) throws InvalidResponseException {
+    protected void processResponse(PacketData packet, int code) throws InvalidResponseException {
         String alertData = packet.getAttribute(PacketAttribute.ALERT_LIST.getValue());
         if (alertData == null)
             throw new InvalidResponseException("The packet does not contain alert list data");

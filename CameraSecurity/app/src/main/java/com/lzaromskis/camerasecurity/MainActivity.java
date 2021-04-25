@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lzaromskis.camerasecurity.communication.AlertServiceRestarter;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_login, R.id.navigation_alert_list, R.id.navigation_monitored_zones, R.id.navigation_camera_feed)
+                R.id.navigation_login, R.id.navigation_change_password, R.id.navigation_alert_list, R.id.navigation_monitored_zones, R.id.navigation_camera_feed)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);

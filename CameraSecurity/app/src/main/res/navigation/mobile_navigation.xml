@@ -99,4 +99,15 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_change_password"
+        android:name="com.lzaromskis.camerasecurity.ui.changepassword.ChangePasswordFragment"
+        android:label="Change password"
+        tools:layout="@layout/fragment_change_password">
+
+        <action
+            android:id="@+id/action_navigation_change_password_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+
 </navigation>

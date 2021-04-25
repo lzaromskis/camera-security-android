@@ -1,10 +1,6 @@
 package com.lzaromskis.camerasecurity.authentication;
 
-import android.content.SharedPreferences;
-
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
-
-import static android.content.Context.MODE_PRIVATE;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public class SessionDataSingleton {
 

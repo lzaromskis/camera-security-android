@@ -4,7 +4,7 @@ import android.security.keystore.UserNotAuthenticatedException;
 
 import com.lzaromskis.camerasecurity.communication.PacketAttribute;
 import com.lzaromskis.camerasecurity.communication.PacketData;
-import com.lzaromskis.camerasecurity.helpers.SharedPrefs;
+import com.lzaromskis.camerasecurity.utility.SharedPrefs;
 
 public abstract class BaseRequest implements IRequest {
 
