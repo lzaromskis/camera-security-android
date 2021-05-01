@@ -24,7 +24,7 @@ import com.lzaromskis.camerasecurity.communication.requests.CameraFeedRequest;
 import com.lzaromskis.camerasecurity.communication.requests.GetDataForCreatingZoneRequest;
 import com.lzaromskis.camerasecurity.communication.requests.asynctasks.AddMonitoredZoneRequestAsyncTask;
 import com.lzaromskis.camerasecurity.communication.requests.asynctasks.GetDataForCreatingZoneRequestAsyncTask;
-import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
+import com.lzaromskis.camerasecurity.utility.BoundingBox;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
 import com.lzaromskis.camerasecurity.communication.requests.asynctasks.CameraFeedRequestAsyncTask;
 

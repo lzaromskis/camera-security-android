@@ -1,4 +1,6 @@
-package com.lzaromskis.camerasecurity.monitoring;
+package com.lzaromskis.camerasecurity.utility;
+
+import androidx.annotation.Nullable;
 
 public final class BoundingBox {
 
@@ -28,5 +30,21 @@ public final class BoundingBox {
 
     public float getBottomRightY() {
         return _bottomRightY;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null)
+            return false;
+
+        BoundingBox other = (BoundingBox)obj;
+        if (other == null)
+            return false;
+
+        float e = 1e-5f;
+        return Math.abs(this._topLeftX - other._topLeftX) < e &&
+                Math.abs(this._topLeftY - other._topLeftY) < e &&
+                Math.abs(this._bottomRightX - other._bottomRightX) < e &&
+                Math.abs(this._bottomRightY - other._bottomRightY) < e;
     }
 }

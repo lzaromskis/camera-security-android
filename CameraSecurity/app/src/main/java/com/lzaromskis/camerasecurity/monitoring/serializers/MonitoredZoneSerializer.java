@@ -2,6 +2,7 @@ package com.lzaromskis.camerasecurity.monitoring.serializers;
 
 import com.lzaromskis.camerasecurity.utility.exceptions.DeserializationFailedException;
 import com.lzaromskis.camerasecurity.monitoring.MonitoredZone;
+import com.lzaromskis.camerasecurity.utility.serializers.BoundingBoxSerializer;
 
 public class MonitoredZoneSerializer {
     private static final String DATA_SEPARATOR = "!";

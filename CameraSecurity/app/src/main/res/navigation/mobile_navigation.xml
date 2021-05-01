@@ -97,6 +97,11 @@
             app:destination="@id/navigation_login"
             app:popUpTo="@id/navigation_login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_alert_view_to_navigation_alert_list"
+            app:destination="@id/navigation_alert_list"
+            app:popUpTo="@id/navigation_alert_list"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

@@ -7,8 +7,8 @@ import com.lzaromskis.camerasecurity.communication.PacketData;
 
 public class ChangePasswordRequest extends BaseRequest {
 
-    private String _currentPassword;
-    private String _newPassword;
+    private final String _currentPassword;
+    private final String _newPassword;
 
     public ChangePasswordRequest(String currentPassword, String newPassword) {
         _currentPassword = currentPassword;

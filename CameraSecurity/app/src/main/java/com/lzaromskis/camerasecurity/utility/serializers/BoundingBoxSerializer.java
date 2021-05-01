@@ -1,7 +1,7 @@
-package com.lzaromskis.camerasecurity.monitoring.serializers;
+package com.lzaromskis.camerasecurity.utility.serializers;
 
 import com.lzaromskis.camerasecurity.utility.exceptions.DeserializationFailedException;
-import com.lzaromskis.camerasecurity.monitoring.BoundingBox;
+import com.lzaromskis.camerasecurity.utility.BoundingBox;
 
 public class BoundingBoxSerializer {
     private static final String COORDINATE_SEPARATOR = ",";

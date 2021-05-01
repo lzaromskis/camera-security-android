@@ -2,6 +2,8 @@ package com.lzaromskis.camerasecurity.monitoring;
 
 import androidx.annotation.Nullable;
 
+import com.lzaromskis.camerasecurity.utility.BoundingBox;
+
 public final class MonitoredZone {
     private final String _name;
     private final BoundingBox _bounds;

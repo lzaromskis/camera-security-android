@@ -31,6 +31,7 @@ public class Client{
 
     public String sendRequest(String request) throws InvalidHostnameException, InvalidResponseException, IOException, SocketTimeoutException {
             int bytesRead;
+            int totalBytesRead = 0;
             char[] sizeBufferChars = new char[8];
             Socket socket = new Socket();
             InetSocketAddress address =  new InetSocketAddress(_host, _port);
@@ -42,17 +43,23 @@ public class Client{
             writer.print(request);
             writer.flush();
             InputStreamReader reader = new InputStreamReader(socket.getInputStream());
-            bytesRead = reader.read(sizeBufferChars, 0, 8);
-            if (bytesRead != 8)
-                throw new InvalidResponseException("The received response is invalid.");
-            String sizeString = new String(sizeBufferChars);
-            int size = Integer.parseInt(sizeString);
+//            bytesRead = reader.read(sizeBufferChars, 0, 8);
+//            if (bytesRead != 8)
+//                throw new InvalidResponseException("The received response is invalid.");
+//            String sizeString = new String(sizeBufferChars);
+//            int size = Integer.parseInt(sizeString);
             try {
-                for (bytesRead = 0; bytesRead < size; ) {
-                    bytesRead += reader.read(_buffer, bytesRead, 16);
+                while (true) {
+                    bytesRead = reader.read(_buffer, totalBytesRead, 16);
+                    if (bytesRead == -1)
+                        break;
+                    totalBytesRead += bytesRead;
                 }
-                if (bytesRead != size)
-                    throw new InvalidResponseException("The received response is invalid.");
+//                for (bytesRead = 0; bytesRead < size; ) {
+//                    bytesRead += reader.read(_buffer, bytesRead, 16);
+//                }
+//                if (bytesRead != size)
+//                    throw new InvalidResponseException("The received response is invalid.");
             } catch (IndexOutOfBoundsException ignored) {
                 return null;
             } finally {
@@ -61,6 +68,6 @@ public class Client{
                 socket.close();
             }
 
-            return new String(_buffer, 0, size);
+            return new String(_buffer, 0, totalBytesRead);
     }
 }

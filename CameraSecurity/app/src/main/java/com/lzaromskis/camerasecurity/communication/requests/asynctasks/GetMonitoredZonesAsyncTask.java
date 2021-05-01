@@ -37,7 +37,7 @@ public class GetMonitoredZonesAsyncTask extends BaseSendRequestAsyncTask {
         if (zonesData == null)
             throw new InvalidResponseException("The received packet is missing the monitored zones data");
 
-        if (zonesData.equals("empty"))
+        if (zonesData.equals("NULL"))
             return;
 
         MonitoredZoneCollectionSerializer serializer = new MonitoredZoneCollectionSerializer();
