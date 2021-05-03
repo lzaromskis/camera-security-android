@@ -55,12 +55,17 @@ public class AlertClient {
                         @Override
                         public void onTextMessage(WebSocket websocket, String text) throws Exception {
                             Log.i("AlertClient", "Received message");
-                            if (text.equals("alert")) {
+                            if (text.startsWith("alert")) {
+                                String zoneName = "Unknown zone name";
+                                int spaceIndex = text.indexOf(" ");
+                                if (spaceIndex != -1 && spaceIndex + 1 != text.length()) {
+                                    zoneName = text.substring(spaceIndex + 1);
+                                }
                                 Log.i("AlertClient", "Websocket received message: " + text);
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(_context.getApplicationContext(), "ALERT_CHANNEL")
                                         .setSmallIcon(androidx.core.R.drawable.notification_icon_background)
                                         .setContentTitle("ALERT!")
-                                        .setContentText("Received alert from server")
+                                        .setContentText("Detected an object in " + zoneName)
                                         .setPriority(NotificationCompat.PRIORITY_MAX);
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(_context.getApplicationContext());
                                 // notificationId is a unique int for each notification that you must define
